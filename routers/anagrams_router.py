@@ -6,8 +6,9 @@ anagrams = Blueprint('anagrams',__name__)
 def get_word_anagrams(word):
     print(f'word to produce anagrams and sub anagrams: {word[::-1]}')
     #print(f'last letter of word is {word[-1]}')
-    
-    word_lst = list(get_anagrams_and_sub_anagrams(word))
+    word_fixed = word[0:-1] + get_fix_end_char(word[-1])
+    print(f'word_fixed : {word_fixed}')
+    word_lst = list(get_anagrams_and_sub_anagrams(word_fixed))
     return {"words":word_lst}
 
 def get_anagrams_and_sub_anagrams(word):
@@ -23,7 +24,7 @@ def get_anagrams_and_sub_anagrams(word):
     
     # Add all permutations and combinations to the set
     for perm in word_permutations:
-        anagrams.add(perm)
+        anagrams.add(perm[0:-1] + get_fix_middle_char(perm[-1]))
     
     return anagrams
 
